@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DolciModule } from './dolci/dolci.module';
 
 @Module({
   imports: [
@@ -13,9 +14,11 @@ import { AppService } from './app.service';
       username: 'interadmin',
       password: 'interpassword',
       database: 'interdb',
+      schema: 'pasticceria',
       entities: [],
-      synchronize: true,
-    })
+      autoLoadEntities: true,
+    }),
+    DolciModule
   ],
   controllers: [AppController],
   providers: [AppService],
