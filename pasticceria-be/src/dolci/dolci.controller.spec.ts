@@ -75,6 +75,7 @@ const dolceById = {
 describe('DolciController', () => {
   let controller: DolciController;
   let dolciService;
+  let module: TestingModule; 
 
   beforeEach(() => {
     dolciService = {
@@ -84,7 +85,11 @@ describe('DolciController', () => {
   })
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    dolciService = {
+      findAll: jest.fn().mockResolvedValue(dolci),
+      findOne: jest.fn().mockResolvedValue(dolceById),
+    }
+    module = await Test.createTestingModule({
       controllers: [DolciController],
       providers: [{ useValue: dolciService, provide: DolciService}],
     })
@@ -99,15 +104,36 @@ describe('DolciController', () => {
 
   describe('findAll', () => {
 
-    it.skip('should call service', async () => {
-      console.info([ await controller.findAll() ]);
+    it('should return service result', async () => {
+      expect(await controller.findAll()).toStrictEqual(dolci);
     });
 
-    it('should return service result', async () => {
-      await controller.findAll();
+    it('should call service', async () => {
+      const dolciService = module.get(DolciService);
+      (dolciService.findAll as jest.Mock).mockReset()
+      
+      await dolciService.findAll();
+
       expect(dolciService.findAll).toHaveBeenCalled();
       expect(dolciService.findAll).toHaveBeenCalledTimes(1);
       expect(dolciService.findAll).toHaveBeenCalledWith();
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return service result', async () => {
+      expect(await controller.findOne(123)).toStrictEqual(dolceById);
+    });
+
+    it('should call service', async () => {
+      const dolciService = module.get(DolciService);
+      (dolciService.findOne as jest.Mock).mockReset();
+      
+      await controller.findOne(123);
+
+      expect(dolciService.findOne).toHaveBeenCalled();
+      expect(dolciService.findOne).toHaveBeenCalledTimes(1);
+      expect(dolciService.findOne).toHaveBeenCalledWith(123);
     });
   });
 });
