@@ -9,7 +9,7 @@ import { DolciModule } from './dolci/dolci.module';
     // TODO Secrets should be moved to.. secrets!
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_HOST || 'localhost',
       port: 5432,
       username: 'interadmin',
       password: 'interpassword',

@@ -1,4 +1,6 @@
-# Requisiti
+# Pasticceria
+
+## Requisiti
 
 L'installazione richiede di aver installato docker e docker-compose sulla propria macchina.
 
@@ -12,10 +14,10 @@ lsof -i -P -n | grep 5432
 
 Se non compare nulla, potete proseguire
 
-# Installazione
+## Avvio
 
-Per l'avvio del db, è sufficiente:
+Per l'avvio del db e del backend utilizzare:
 
-```
+```bash
     docker-compose up
 ```

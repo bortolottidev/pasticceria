@@ -1,4 +1,4 @@
-version: '3.6'
+version: "3.6"
 
 services:
   database:
@@ -13,4 +13,23 @@ services:
       - POSTGRES_DB=interdb
     volumes: 
             - ./docker-pg-init.sql:/docker-entrypoint-initdb.d/docker-pg-init.sql
+    networks:
+      - pasticceria_net
     container_name: "pasticceria_database"
+
+  be:
+    build:
+      context: ./pasticceria-be
+    environment:
+      - PORT=5000
+      - DB_HOST=database
+    # TODO Remove port expose - For development only
+    ports:
+      - 5000:5000
+    depends_on:
+      - database
+    networks:
+      - pasticceria_net
+    
+networks:
+  pasticceria_net:
