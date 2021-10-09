@@ -30,6 +30,18 @@ services:
       - database
     networks:
       - pasticceria_net
-    
+    container_name: "pasticceria_be"
+
+  fe:
+    build:
+      context: ./pasticceria-fe
+      args:
+        - BE_HOST=pasticceria_be_1:5000
+    ports:
+      - 3000:80
+    networks:
+      - pasticceria_net
+    container_name: "pasticceria_fe"
+
 networks:
   pasticceria_net:

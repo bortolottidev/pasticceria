@@ -1,18 +1,28 @@
 ARG TAG=16-alpine
 
-FROM node:${TAG}
+# -------> Build phase
+FROM node:${TAG} as build
+
+ENV NODE_ENV build
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY . /usr/src/app
 
-RUN npm ci
+RUN npm i
 RUN npm run build
 
-COPY ./dist .
+# -------> Run phase
+FROM node:${TAG} as run
 
-EXPOSE 3000
+ENV NODE_ENV production
+USER node
 
-RUN node -v
+WORKDIR /usr/src/app
+
+COPY --chown=node:node package*.json /usr/src/app
+COPY --chown=node:node --from=build /usr/src/app/dist /usr/src/app
+
+RUN npm ci --only=production
 
 CMD ["node", "main.js"]

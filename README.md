@@ -9,14 +9,18 @@ L'installazione richiede di avere la porta 5432 libera.
 Potete controllare che essa effettivamente lo digitando in console linux:
 
 ```bash
-lsof -i -P -n | grep 5432
+    lsof -i -P -n | grep 5432
 ```
 
-Se non compare nulla, potete proseguire
+Se non compare nulla, potete preparare l'ambiente
+
+```bash
+    docker-compose build --no-cache 
+```
 
 ## Avvio
 
-Per l'avvio del db e del backend utilizzare:
+Per l'avvio di tutti i servizi utilizzare:
 
 ```bash
     docker-compose up
