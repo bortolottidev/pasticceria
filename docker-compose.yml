@@ -23,6 +23,7 @@ services:
     environment:
       - PORT=5000
       - DB_HOST=database
+      - NODE_ENV=development
     # TODO Remove port expose - For development only
     ports:
       - 5000:5000
@@ -32,16 +33,16 @@ services:
       - pasticceria_net
     container_name: "pasticceria_be"
 
-  fe:
-    build:
-      context: ./pasticceria-fe
-      args:
-        - BE_HOST=pasticceria_be_1:5000
-    ports:
-      - 3000:80
-    networks:
-      - pasticceria_net
-    container_name: "pasticceria_fe"
+  # fe:
+  #   build:
+  #     context: ./pasticceria-fe
+  #     args:
+  #       - BE_HOST=pasticceria_be_1:5000
+  #   ports:
+  #     - 3000:80
+  #   networks:
+  #     - pasticceria_net
+  #   container_name: "pasticceria_fe"
 
 networks:
   pasticceria_net:
