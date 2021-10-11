@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import {
+  HttpCode,
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { DolciService } from './dolci.service';
 import { CreateDolciDto } from './dto/create-dolci.dto';
 import { UpdateDolciDto } from './dto/update-dolci.dto';
@@ -19,17 +29,21 @@ export class DolciController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Dolce> {
     return this.dolciService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDolciDto: UpdateDolciDto) {
-    return this.dolciService.update(+id, updateDolciDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDolciDto: UpdateDolciDto,
+  ): Promise<Dolce> {
+    return this.dolciService.update(id, updateDolciDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dolciService.remove(+id);
+  @HttpCode(204)
+  remove(@Param('id', ParseIntPipe) id: number): void {
+    this.dolciService.remove(id);
   }
 }

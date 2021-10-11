@@ -4,16 +4,23 @@ import { Repository } from 'typeorm';
 import { CreateDolciDto } from './dto/create-dolci.dto';
 import { UpdateDolciDto } from './dto/update-dolci.dto';
 import { Dolce } from './entities/dolci.entity';
+import { Ingrediente } from './entities/ingredienti.entity';
 
 @Injectable()
 export class DolciService {
-
   constructor(
-    @InjectRepository(Dolce) private dolciRepository: Repository<Dolce>
-  ){}
+    @InjectRepository(Dolce) private dolciRepository: Repository<Dolce>,
+    @InjectRepository(Ingrediente)
+    private ingredientiRepository: Repository<Ingrediente>,
+  ) {}
 
-  create(createDolciDto: CreateDolciDto) {
-    return 'This action adds a new dolci';
+  async create(createDolciDto: CreateDolciDto) {
+    const { nome, prezzo, ingredienti } = createDolciDto;
+    // TODO Need Transaction, can create dolce without ingredienti 
+    const newDolce: Dolce = await this.dolciRepository.save({ nome, prezzo });
+    await this.ingredientiRepository.save(
+      ingredienti.map((i) => Ingrediente.build(newDolce, i)),
+    );
   }
 
   findAll(): Promise<Dolce[]> {
@@ -21,14 +28,41 @@ export class DolciService {
   }
 
   findOne(id: number): Promise<Dolce> {
-    return this.dolciRepository.findOne(id, { relations: [ 'ingredienti' ]});
+    return this.dolciRepository.findOne(id, { relations: ['ingredienti'] });
   }
 
-  update(id: number, updateDolciDto: UpdateDolciDto) {
-    return `This action updates a #${id} dolci`;
+  async update(id: number, updateDolciDto: UpdateDolciDto) {
+    const { nome, prezzo, ingredienti } = updateDolciDto;
+    const dolce: Dolce = await this.dolciRepository.save({
+      id,
+      prezzo,
+      nome
+    });
+
+    if (!ingredienti) { 
+      return dolce;
+    }
+    
+    try {
+      const oldIngredienti: Ingrediente[] = await this.ingredientiRepository.find({ dolce });
+    
+      // write new
+      await this.ingredientiRepository.save(
+        ingredienti.map((i) => Ingrediente.build(dolce, i)),
+      );
+      
+      // remove old
+      await this.ingredientiRepository.delete(oldIngredienti.map(i => i.id))
+    } catch(error) {
+      console.error({ msg: 'Cannot update ingredienti', error });
+      throw error;
+    }
+    
+    return dolce;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dolci`;
+  async remove(id: number): Promise<void> {
+    await this.ingredientiRepository.delete({ dolce: { id } })
+    await this.dolciRepository.delete(id);
   }
 }
