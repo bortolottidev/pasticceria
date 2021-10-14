@@ -19,7 +19,7 @@ export class DolciController {
   constructor(private readonly dolciService: DolciService) {}
 
   @Post()
-  create(@Body() createDolciDto: CreateDolciDto) {
+  create(@Body() createDolciDto: CreateDolciDto): Promise<Dolce> {
     return this.dolciService.create(createDolciDto);
   }
 

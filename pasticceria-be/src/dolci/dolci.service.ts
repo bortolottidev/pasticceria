@@ -14,13 +14,15 @@ export class DolciService {
     private ingredientiRepository: Repository<Ingrediente>,
   ) {}
 
-  async create(createDolciDto: CreateDolciDto) {
+  async create(createDolciDto: CreateDolciDto): Promise<Dolce> {
     const { nome, prezzo, ingredienti } = createDolciDto;
     // TODO Need Transaction, can create dolce without ingredienti 
-    const newDolce: Dolce = await this.dolciRepository.save({ nome, prezzo });
+    const newDolce: Dolce = await this.dolciRepository.save({ nome, prezzo: Number(prezzo) });
     await this.ingredientiRepository.save(
       ingredienti.map((i) => Ingrediente.build(newDolce, i)),
     );
+
+    return newDolce;
   }
 
   findAll(): Promise<Dolce[]> {

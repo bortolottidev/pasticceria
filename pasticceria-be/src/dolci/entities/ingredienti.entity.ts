@@ -27,7 +27,7 @@ export class Ingrediente {
     const i = new Ingrediente();
     i.dolce = dolce;
     i.nome = ingredienteDto.nome;
-    i.qta = ingredienteDto.qta;
+    i.qta = Number(ingredienteDto.qta);
     i.unitaMisura = ingredienteDto.unita;
     return i;
   }
