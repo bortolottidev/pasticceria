@@ -4,6 +4,7 @@ const call = async (url, method = 'GET', body) => {
     body: body ? JSON.stringify(body) : undefined,
     headers: new Headers({
       Accept: "application/json",
+      'Content-Type': "application/json",
     }),
   });
   return response.json();
@@ -25,7 +26,7 @@ export const fetchDolci =   async () => {
 export const addNewDolce = async (newDolce) => {
   const url = `${process.env.REACT_APP_BE_HOST}/dolci`;
   try {
-    return post(url, { nome: 'asd', prezzo: '222', ingredienti: [] });
+    return post(url, newDolce);
   } catch (error) {
     console.error(error);
     return [];

@@ -28,7 +28,7 @@ export default function AdminPage({ dolci, addNewDolceFunction, requireReloadFun
       ...form,
       ingredienti: form.ingredienti.filter(({ nome }) => nome)
     }
-    addNewDolceFunction(data).then(requireReloadFunction(false));
+    addNewDolceFunction(data).then(() => requireReloadFunction(true));
     setForm(initialState);
   };
 
