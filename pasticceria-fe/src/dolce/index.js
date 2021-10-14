@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 
 const dolceDivStyle = {
   height: 300,

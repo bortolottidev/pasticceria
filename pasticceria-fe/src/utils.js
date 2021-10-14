@@ -1,6 +1,7 @@
-const get = async (url) => {
+const call = async (url, method = 'GET', body) => {
   const response = await fetch(url, {
-    method: "GET",
+    method,
+    body: body ? JSON.stringify(body) : undefined,
     headers: new Headers({
       Accept: "application/json",
     }),
@@ -8,10 +9,23 @@ const get = async (url) => {
   return response.json();
 }
 
-export const fetchDolci = async () => {
+const get = url => call(url);
+const post = (url, body) => call(url, 'POST', body);
+
+export const fetchDolci =   async () => {
   const url = `${process.env.REACT_APP_BE_HOST}/dolci`;
   try {
     return get(url);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const addNewDolce = async (newDolce) => {
+  const url = `${process.env.REACT_APP_BE_HOST}/dolci`;
+  try {
+    return post(url, { nome: 'asd', prezzo: '222', ingredienti: [] });
   } catch (error) {
     console.error(error);
     return [];

@@ -59,3 +59,42 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.gap-8 {
+  gap: 8;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+button {
+  color: white;
+  background-color: #ff867f;
+  border-radius: 8px;
+  border: 2px solid #ff5252;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #c50e29;
+}
