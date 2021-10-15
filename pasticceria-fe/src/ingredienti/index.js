@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 
 const List = ({ elements }) =>
-  elements && elements.map(({ id, nome, qta, unita_misura }) => (
+  elements && elements.map(({ id, nome, qta, unitaMisura }) => (
     <li key={id}>
-      {qta}
-      {unita_misura} {nome}
+      {qta}{unitaMisura} {nome}
     </li>
   ));
 
