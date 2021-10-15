@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { DolciService } from './dolci.service';
 import { CreateDolciDto } from './dto/create-dolci.dto';
+import { DolciDto } from './dto/dolci.dto';
 import { UpdateDolciDto } from './dto/update-dolci.dto';
 import { Dolce } from './entities/dolci.entity';
 
@@ -24,7 +25,7 @@ export class DolciController {
   }
 
   @Get()
-  findAll(): Promise<Dolce[]> {
+  findAll(): Promise<DolciDto[]> {
     return this.dolciService.findAll();
   }
 

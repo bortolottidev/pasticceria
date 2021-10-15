@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateDolciDto } from './dto/create-dolci.dto';
+import { DolciDto } from './dto/dolci.dto';
 import { UpdateDolciDto } from './dto/update-dolci.dto';
 import { Dolce } from './entities/dolci.entity';
 import { Ingrediente } from './entities/ingredienti.entity';
@@ -25,8 +26,9 @@ export class DolciService {
     return newDolce;
   }
 
-  findAll(): Promise<Dolce[]> {
-    return this.dolciRepository.find();
+  async findAll(): Promise<DolciDto[]> {
+    const dolci = await this.dolciRepository.find();
+    return dolci.map(DolciDto.buildFromDolce);
   }
 
   findOne(id: number): Promise<Dolce> {
