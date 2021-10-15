@@ -42,7 +42,7 @@ export class DolciDto {
       days: diffAsDays,
       prezzo: prezzo * discountFactor,
       prezzoOriginale: prezzo,
-      discount: (1 - discountFactor) * 100,
+      discount: Math.round((1 - discountFactor) * 100),
       eatable,
     };
   }
