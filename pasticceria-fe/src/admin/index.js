@@ -48,9 +48,9 @@ export default function AdminPage({ dolci, addNewDolceFunction, requireReloadFun
           ></input>
           <input
             type="number"
-            placeholder="Prezzo"
-            value={ingrediente.prezzo}
-            onChange={onChangeIngredienteProp(ingrediente, index, "prezzo")}
+            placeholder="Quantità"
+            value={ingrediente.qta}
+            onChange={onChangeIngredienteProp(ingrediente, index, "qta")}
             style={{ flex: 1, maxWidth: 100 }}
           ></input>
           <input

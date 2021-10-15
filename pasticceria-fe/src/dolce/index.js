@@ -1,4 +1,5 @@
 import React from "react";
+import tagIcon from "./tag.png";
 
 const dolceDivStyle = {
   height: 300,
@@ -14,11 +15,33 @@ const dolceDivStyle = {
 const upperFirst = (str) =>
   str && str.length >= 1 ? str[0].toUpperCase() + str.slice(1) : str;
 
-const Dolce = ({ id, nome, prezzo, createdAt }, onButtonClicked = () => {}) => (
+const Discount = ({ discount, prezzoOriginale }) =>
+  discount > 0 ? (
+    <div
+      style={{ justifyContent: "center", alignItems: "start" }}
+      className="row"
+    >
+      <img
+        src={tagIcon}
+        alt="discount-icon"
+        style={{ width: 30, padding: 8 }}
+      />
+      <span>(-{discount}%)</span>
+      <span style={{ textDecoration: "line-through", paddingLeft: 8 }}>
+        {prezzoOriginale}€
+      </span>
+    </div>
+  ) : null;
+
+const Dolce = (
+  { id, nome, prezzo, prezzoOriginale, discount },
+  onButtonClicked = () => {}
+) => (
   <div style={dolceDivStyle} key={id}>
     <div>
       <h3>{upperFirst(nome)}</h3>
-      Prezzo: {prezzo}€
+      <div>Prezzo: {prezzo}€</div>
+      <Discount discount={discount} prezzoOriginale={prezzoOriginale}/>
     </div>
     <div>
       <button onClick={() => onButtonClicked(id)}>Dettagli</button>

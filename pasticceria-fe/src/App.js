@@ -54,7 +54,9 @@ function App() {
       </div>
     ) : null;
 
-  const vetrinaDolci = dolciList.map((dolce) => Dolce(dolce, activeOverlay));
+  const vetrinaDolci = dolciList
+    .filter(({ eatable }) => eatable)
+    .map((dolce) => Dolce(dolce, activeOverlay));
 
   if (isPageAdmin) {
     return (
