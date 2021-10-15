@@ -4,6 +4,7 @@ services:
   database:
     image: "postgres:11.1-alpine"
     restart: always
+    # TODO Remove port expose - For development only
     ports:
       - 5432:5432
     environment:
@@ -37,7 +38,7 @@ services:
   #   build:
   #     context: ./pasticceria-fe
   #     args:
-  #       - BE_HOST=pasticceria_be_1:5000
+  #       - BE_HOST=pasticceria_be:5000
   #   ports:
   #     - 3000:80
   #   networks:

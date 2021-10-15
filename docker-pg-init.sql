@@ -8,11 +8,16 @@ create table pasticceria.dolci (
 );
 
 
-INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vecchissimo', 1, now() - INTERVAL '4 day');
-INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vecchio', 1, now() - INTERVAL '3 day');
-INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vuoto', 1, now() - INTERVAL '2 day');
-INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vegano', 1.2, now() - INTERVAL '1 day');
-INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto alla fragola', 1.25, now());
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vecchissimo', 10, now() - INTERVAL '4 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vecchio', 10, now() - INTERVAL '3 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vuoto', 10, now() - INTERVAL '2 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('fetta di torta classica', 10, now() - INTERVAL '2 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('fetta di cheesecake', 10, now() - INTERVAL '2 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto vegano', 10, now() - INTERVAL '1 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cookie al pistacchio', 10, now() - INTERVAL '1 day');
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cornetto alla fragola', 10, now());
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('ciambella al cioccolato', 10, now());
+INSERT INTO pasticceria.dolci (nome, prezzo, created_at) VALUES('cupcake', 10, now());
 
 create table pasticceria.ingredienti (
 	id serial primary key,
